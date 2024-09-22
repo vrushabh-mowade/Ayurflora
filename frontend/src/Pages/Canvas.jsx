@@ -14,11 +14,11 @@ const Canvas3D = () => {
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0xffffff); // Set background color to white for better visibility
 
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, 600 / 600, 0.1, 1000);
         camera.position.set(0, 1, 3); // Adjust camera position to fit the GLB model in view
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(600, 600);
         mountRef.current.appendChild(renderer.domElement);
 
         // Load GLB Model
@@ -65,8 +65,8 @@ const Canvas3D = () => {
 
         // Handle Resize
         const handleResize = () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
+            renderer.setSize(600, 600); // Set to fixed 600x600
+            camera.aspect = 600 / 600;
             camera.updateProjectionMatrix();
         };
         window.addEventListener('resize', handleResize);
@@ -78,7 +78,7 @@ const Canvas3D = () => {
         };
     }, []); // Dependency array is empty since the model is loaded from a direct import
 
-    return <div ref={mountRef} className="w-full h-full" />;
+    return <div ref={mountRef} style={{ width: '600px', height: '600px' }} />;
 };
 
 export default Canvas3D;
